@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
 # Load dataset
-tesla = load_dataset('codesignal/tsla-historic-prices')
+tesla = load_dataset('tsla-historic-prices')
 tesla_df = pd.DataFrame(tesla['train'])
 
 # Convert 'Date' column to datetime format
