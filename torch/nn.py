@@ -27,3 +27,20 @@ SimpleNN(
   (sigmoid): Sigmoid()
 )
 '''
+
+model = nn.Sequential(
+    nn.Linear(2, 10),  # First layer: input size 2, output size 10
+    nn.ReLU(),         # ReLU activation function
+    nn.Linear(10, 1),  # Second layer: input size 10, output size 1
+    nn.Sigmoid()       # Sigmoid activation function
+)
+print("Sequential Model Architecture:\n", model)
+'''
+Sequential Model Architecture:
+ Sequential(
+  (0): Linear(in_features=2, out_features=10, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=10, out_features=1, bias=True)
+  (3): Sigmoid()
+)
+'''
