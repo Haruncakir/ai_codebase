@@ -4,6 +4,8 @@ import torch.optim as optim
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 # Load the Wine dataset
 wine = load_wine()
@@ -133,4 +135,33 @@ Epoch [40/150], Loss: 1.0366, Validation Loss: 1.0204
 Epoch [150/150], Loss: 0.3014, Validation Loss: 0.3216
 '''
 
+# Set the model to evaluation mode
+model.eval()
 
+# Disables gradient calculation
+with torch.no_grad():
+    # Input the test data into the model
+    outputs = model(X_test)
+    # Calculate the Cross Entropy Loss
+    test_loss = criterion(outputs, y_test).item()
+    # Choose the class with the highest value as the predicted output
+    _, predicted = torch.max(outputs, 1)
+    # Calculate the accuracy
+    test_accuracy = accuracy_score(y_test, predicted)
+
+print(f'Test Accuracy: {test_accuracy:.4f}, Test Loss: {test_loss:.4f}')
+# Test Accuracy: 0.9259, Test Loss: 0.4211
+
+# Plotting actual training and validation loss
+epochs = range(1, num_epochs + 1)
+train_loss = history['loss']
+val_loss = history['val_loss']
+
+plt.figure(figsize=(8, 5))
+plt.plot(epochs, train_loss, label='Training Loss')
+plt.plot(epochs, val_loss, label='Validation Loss')
+plt.title('Model Loss During Training')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend()
+plt.show()
